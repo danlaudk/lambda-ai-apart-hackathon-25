@@ -1,4 +1,4 @@
-# NewInstance Project
+# getting started with vLLM on lambda.ai via ssh
 
 This repository contains multiple AI/LLM related projects and utilities.
 
@@ -16,37 +16,18 @@ vLLM Model Manager API - A Flask-based API service for managing vLLM instances a
 See `vllm/README.md` for detailed documentation.
 
 ### ai_assessment_dora/
-Assessment tools for Dora project using LLM capabilities.
-
-### ai_assessment_corey/
-Assessment tools for Corey project.
-
-### ai_api_script/
-API scripts and utilities.
-
-### ollama/
-Ollama-related configurations and scripts.
+.csv data file and pyscript
 
 ## Getting Started
 
 ### Prerequisites
 - Python 3.10+
-- vLLM installed (for vllm components)
 - Required Python packages (see `vllm/requirements.txt`)
 
 ### Quick Start
+For vLLM setup, see `vllm/README.md` or `vllm/QUICKSTART.md` . 
 
-1. Navigate to the desired component directory
-2. Follow component-specific setup instructions
-3. For vLLM setup, see `vllm/README.md` or `vllm/QUICKSTART.md`
-
+can then run Local_setup
 ## Notes
 
-- Virtual environments (`venv/`) are excluded from version control
-- Database files (`.db`) are excluded from version control
-- See `.gitignore` for a complete list of excluded files
-
-## License
-
-[Add license information if applicable]
 
