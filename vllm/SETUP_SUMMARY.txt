@@ -1,0 +1,275 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                  vLLM MODEL SELECTION - COMPLETE SETUP GUIDE                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🎯 FEATURE: Choose which AI model to use from your local computer!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 WHAT WAS CREATED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SERVER FILES (on 192.222.53.238):
+───────────────────────────────────────────────────────────────────────────────
+
+/lambda/nfs/newinstance/vllm/
+├── model_manager.py                    - Model management API server
+├── vllm_client.py                      - Python client library
+├── start_model_manager.sh              - Start model manager
+├── test_model_selection.py             - Test script
+├── MODEL_SELECTION_GUIDE.md            - Complete documentation
+├── MODEL_SELECTION_QUICKSTART.txt      - Quick reference
+├── LOCAL_SETUP_INSTRUCTIONS.md         - Local computer setup guide
+├── SETUP_SUMMARY.txt                   - This file
+└── local_setup/                        - Files for local computer
+    ├── README.md                       - Local setup README
+    ├── setup_local.sh                  - Automated setup script
+    ├── start_tunnel.sh                 - SSH tunnel (Linux/Mac)
+    ├── start_tunnel.bat                - SSH tunnel (Windows)
+    ├── test_connection.py              - Connection test
+    └── my_first_script.py              - Example script
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 SETUP INSTRUCTIONS FOR YOUR LOCAL COMPUTER
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPTION 1: Automated Setup (RECOMMENDED)
+───────────────────────────────────────────────────────────────────────────────
+
+On your LOCAL COMPUTER, run:
+
+  # Create directory
+  mkdir ~/vllm_client
+  cd ~/vllm_client
+
+  # Download setup script
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/local_setup/setup_local.sh .
+
+  # Run it
+  chmod +x setup_local.sh
+  ./setup_local.sh
+
+This downloads everything and sets up your environment automatically!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPTION 2: Manual Setup
+───────────────────────────────────────────────────────────────────────────────
+
+On your LOCAL COMPUTER:
+
+  # 1. Create directory
+  mkdir ~/vllm_client
+  cd ~/vllm_client
+
+  # 2. Download required files
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/vllm_client.py .
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/local_setup/start_tunnel.sh .
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/local_setup/test_connection.py .
+
+  # 3. Install Python dependencies
+  pip install openai requests
+
+  # 4. Make scripts executable
+  chmod +x start_tunnel.sh test_connection.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 HOW TO USE IT
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Start Model Manager on SERVER
+───────────────────────────────────────────────────────────────────────────────
+
+  ssh ubuntu@192.222.53.238
+  cd /lambda/nfs/newinstance/vllm
+  ./start_model_manager.sh
+
+Keep this running! It manages the AI models.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: Start SSH Tunnel on LOCAL COMPUTER
+───────────────────────────────────────────────────────────────────────────────
+
+Open a NEW terminal on your local computer:
+
+  cd ~/vllm_client
+  ./start_tunnel.sh
+
+Keep this terminal open! It creates secure connection to server.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3: Use in Your Python Scripts on LOCAL COMPUTER
+───────────────────────────────────────────────────────────────────────────────
+
+Open ANOTHER terminal on your local computer:
+
+  cd ~/vllm_client
+
+  # Test connection
+  python test_connection.py
+
+  # Run example
+  python my_first_script.py
+
+  # Create your own script
+  nano my_script.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 EXAMPLE PYTHON SCRIPT
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create my_script.py on your LOCAL COMPUTER:
+
+  from vllm_client import VLLMClient
+
+  # Connect to server
+  client = VLLMClient()
+
+  # List available models
+  client.print_available_models()
+
+  # Select a model
+  client.select_model("qwen-14b-fast")
+
+  # Use it
+  response = client.chat("What is machine learning?")
+  print(response)
+
+  # Extract claims from YouTube transcript
+  transcript = "Your YouTube transcript here..."
+  claims = client.extract_claims(transcript)
+  print(claims)
+
+  # Switch to different model
+  client.select_model("deepseek-v3-reasoning")
+  analysis = client.chat("Analyze trends...")
+
+Run it:
+
+  python my_script.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 AVAILABLE MODELS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Model ID                    Speed           Best For
+───────────────────────────────────────────────────────────────────────────────
+qwen-14b-fast               150-200 tok/s   Fast processing ⚡
+qwen-72b-quality            50-70 tok/s     Maximum quality 💎
+deepseek-v3-reasoning       60-80 tok/s     Complex reasoning 🧠
+qwen-vl-7b-multimodal       100-120 tok/s   Images + text 🖼️
+qwen-vl-72b-multimodal      40-60 tok/s     Best multimodal 🖼️💎
+mistral-large-chat          40-60 tok/s     Conversations 💬
+phi-4-quantized             200+ tok/s      Low memory 🔧
+t3q-structured              120-150 tok/s   JSON output 📋
+calme-analysis              45-65 tok/s     Deep analysis 🎓
+rombos-merge                50-70 tok/s     Combined strengths 🔀
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 KEY FEATURES
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Remote Model Selection - Choose models from your local computer
+✅ 10 Models Available - Optimize for speed, quality, or specific tasks
+✅ Runtime Switching - Change models without restarting your script
+✅ Easy Integration - Simple Python API
+✅ Secure Connection - Uses SSH tunnels (encrypted)
+✅ Automatic Management - Model manager handles all complexity
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTATION
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Download to your LOCAL COMPUTER for reference:
+
+  # Quick reference (START HERE!)
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/MODEL_SELECTION_QUICKSTART.txt .
+
+  # Complete setup guide
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/LOCAL_SETUP_INSTRUCTIONS.md .
+
+  # Detailed usage examples
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/MODEL_SELECTION_GUIDE.md .
+
+  # Local setup README
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/local_setup/README.md .
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ TROUBLESHOOTING
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: "Connection refused"
+───────────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Check SSH tunnel is running: ./start_tunnel.sh
+  2. Check model manager is running on server
+  3. Verify both ports 8000 and 8001 are tunneled
+
+Problem: "No module named 'vllm_client'"
+───────────────────────────────────────────────────────────────────────────────
+Solution:
+  scp ubuntu@192.222.53.238:/lambda/nfs/newinstance/vllm/vllm_client.py .
+
+Problem: "No module named 'openai'"
+───────────────────────────────────────────────────────────────────────────────
+Solution:
+  pip install openai requests
+
+Problem: Model loading takes too long
+───────────────────────────────────────────────────────────────────────────────
+This is normal! Large models take 1-3 minutes to load.
+The client waits automatically.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ VERIFICATION CHECKLIST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before running your scripts, verify:
+
+  [ ] Model manager running on server (./start_model_manager.sh)
+  [ ] SSH tunnel running on local computer (./start_tunnel.sh)
+  [ ] vllm_client.py downloaded to local computer
+  [ ] Python dependencies installed (pip install openai requests)
+  [ ] Test script passes (python test_connection.py)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 YOU'RE READY!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+You can now:
+  ✅ Connect to vLLM server from your local computer
+  ✅ Choose from 10 different AI models
+  ✅ Switch models during runtime
+  ✅ Optimize for speed vs quality
+  ✅ Process YouTube transcripts at scale
+
+Next Steps:
+  1. Run setup on local computer: ./setup_local.sh
+  2. Start model manager on server: ./start_model_manager.sh
+  3. Start SSH tunnel on local: ./start_tunnel.sh
+  4. Test connection: python test_connection.py
+  5. Start coding!
+
+╚══════════════════════════════════════════════════════════════════════════════╝
+
